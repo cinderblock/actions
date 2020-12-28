@@ -99,7 +99,14 @@ async function serverCtl(command: 'start' | 'stop'): Promise<void> {
       break;
   }
 
-  await spawn('ssh', 'runtime-server', 'systemctl', command, serviceName);
+  await spawn(
+    'ssh',
+    'runtime-server',
+    'sudo',
+    'systemctl',
+    command,
+    serviceName,
+  );
 
   switch (command) {
     case 'stop':
