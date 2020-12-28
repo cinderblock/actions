@@ -1,4 +1,4 @@
-import { input } from '../../utils/io';
+import { debug, input } from '../../utils/io';
 import { reportError } from '../../utils/reportError';
 import { spawn, exec } from '../../utils/spawn';
 import { mkdir, ensureFileIs, ensureFileContains } from '../../utils/fs';
@@ -56,6 +56,8 @@ async function copySources(): Promise<void> {
   const localDir = await input('deploy-directory');
   const remoteDir = await input('runtime-host-directory');
 
+  debug(3, 'spawning rsync');
+
   await spawn(
     'rsync',
 
@@ -78,22 +80,38 @@ async function copySources(): Promise<void> {
 
     // Remote runtime server and destination
     `runtime-server:${remoteDir}`,
+  ).then(
+    () => {
+      debug(3, 'rsync success');
+    },
+    e => {
+      debug(0, 'rsync error', e);
+    },
   );
 }
 
 async function restartService(wait?: () => Promise<void>): Promise<void> {
   const serviceName = await input('service-name');
 
+  debug(2, 'Stopping service', serviceName);
+
   await spawn('ssh', 'runtime-server', 'systemctl', 'stop', serviceName);
+
+  debug(3, 'Service stopped');
 
   // TODO: migrate db
   if (wait) await wait();
 
+  debug(2, 'Starting service', serviceName);
+
   await spawn('ssh', 'runtime-server', 'systemctl', 'start', serviceName);
+
+  debug(3, 'Service started');
 }
 
 export async function main(): Promise<void> {
   await setupShhConfig();
+  debug(2, 'setupShhConfig() done');
 
   // TODO: Secrets
 
