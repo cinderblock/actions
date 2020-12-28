@@ -1,6 +1,6 @@
-import { debug, input } from '../../utils/io';
+import { log, input } from '../../utils/io';
 import { reportError } from '../../utils/reportError';
-import { spawn, exec } from '../../utils/spawn';
+import { spawn } from '../../utils/spawn';
 import { mkdir, ensureFileIs, ensureFileContains } from '../../utils/fs';
 
 /**
@@ -25,12 +25,11 @@ async function setupShhConfig(): Promise<void> {
   const runtimeHostUser = await input('runtime-host-user');
   const runtimeHostPort = (await input('runtime-host-port')) || '22';
 
-  const hostKeys = await input('deploy-identity');
-  (await exec(`ssh-keyscan -p ${runtimeHostPort} ${runtimeHost}`)).stdout;
+  const hostKeys = await input('runtime-host-keys');
 
   if (hostKeys) {
-    console.log('Adding host keys:');
-    console.log(hostKeys);
+    await log(0, 'Adding host keys:');
+    await log(0, hostKeys);
 
     files.push(
       ensureFileContains(`${process.env.HOME}/.ssh/known_hosts`, hostKeys),
@@ -56,7 +55,7 @@ async function copySources(): Promise<void> {
   const localDir = await input('deploy-directory');
   const remoteDir = await input('runtime-host-directory');
 
-  debug(3, 'spawning rsync');
+  await log(3, 'spawning rsync');
 
   await spawn(
     'rsync',
@@ -81,12 +80,8 @@ async function copySources(): Promise<void> {
     // Remote runtime server and destination
     `runtime-server:${remoteDir}`,
   ).then(
-    () => {
-      debug(3, 'rsync success');
-    },
-    e => {
-      debug(0, 'rsync error', e);
-    },
+    r => log(3, 'rsync success', r),
+    e => log(0, 'rsync error', e),
   );
 }
 
@@ -95,25 +90,25 @@ async function restartService(wait?: () => Promise<void>): Promise<void> {
 
   if (!serviceName) throw new Error('systemd-service unset');
 
-  debug(2, 'Stopping service', serviceName);
+  await log(2, 'Stopping service', serviceName);
 
   await spawn('ssh', 'runtime-server', 'systemctl', 'stop', serviceName);
 
-  debug(3, 'Service stopped');
+  await log(3, 'Service stopped');
 
   // TODO: migrate db
   if (wait) await wait();
 
-  debug(2, 'Starting service', serviceName);
+  await log(2, 'Starting service', serviceName);
 
   await spawn('ssh', 'runtime-server', 'systemctl', 'start', serviceName);
 
-  debug(3, 'Service started');
+  await log(3, 'Service started');
 }
 
 export async function main(): Promise<void> {
   await setupShhConfig();
-  debug(2, 'setupShhConfig() done');
+  await log(2, 'setupShhConfig() done');
 
   // TODO: Secrets
 
