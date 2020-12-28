@@ -26,6 +26,7 @@
     "gitignore",
     "Interop",
     "Journalbeat",
+    "keyscan",
     "kibana",
     "lcov",
     "localtime",

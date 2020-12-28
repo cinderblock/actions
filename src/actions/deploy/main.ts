@@ -34,8 +34,6 @@ async function setupShhConfig(): Promise<void> {
     );
   }
 
-  // cSpell:ignore keyscan
-
   const runtimeHost = await getRuntimeHost();
   const runtimeHostPort = (await input('runtime-host-port')) || '22';
 
