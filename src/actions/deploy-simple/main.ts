@@ -85,23 +85,38 @@ async function copySources(): Promise<void> {
   );
 }
 
-async function restartService(wait?: () => Promise<void>): Promise<void> {
+async function serverCtl(command: 'start' | 'stop'): Promise<void> {
   const serviceName = await input('systemd-service');
 
   if (!serviceName) throw new Error('systemd-service unset');
 
-  await log(2, 'Stopping service', serviceName);
+  switch (command) {
+    case 'stop':
+      await log(2, 'Stopping service', serviceName);
+      break;
+    case 'start':
+      await log(2, 'Starting service', serviceName);
+      break;
+  }
 
-  await spawn('ssh', 'runtime-server', 'systemctl', 'stop', serviceName);
+  await spawn('ssh', 'runtime-server', 'systemctl', command, serviceName);
 
-  await log(3, 'Service stopped');
+  switch (command) {
+    case 'stop':
+      await log(3, 'Service stopped');
+      break;
+    case 'start':
+      await log(3, 'Service started');
+      break;
+  }
+}
+
+async function restartService(wait?: () => Promise<void>): Promise<void> {
+  await serverCtl('stop');
 
   // TODO: migrate db
   if (wait) await wait();
-
-  await log(2, 'Starting service', serviceName);
-
-  await spawn('ssh', 'runtime-server', 'systemctl', 'start', serviceName);
+  await serverCtl('start');
 
   await log(3, 'Service started');
 }
