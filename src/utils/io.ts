@@ -30,7 +30,21 @@ export function debug(...info: Parameters<typeof console.log>): void {
   console.log(...info);
 }
 
-export async function verbosityLevel(): Promise<0 | 1 | 2 | 3> {
+export type VerbosityLevel = 0 | 1 | 2 | 3;
+
+export async function log(
+  level: VerbosityLevel,
+  ...info: Parameters<typeof debug>
+): Promise<void> {
+  if ((await verbosityLevel()) < level) return;
+
+  debug(...info);
+}
+
+let cached: VerbosityLevel;
+export async function verbosityLevel(): Promise<VerbosityLevel> {
+  if (cached !== undefined) return cached;
+
   const raw = await input('verbosity');
 
   const level = parseInt(raw);
@@ -41,5 +55,7 @@ export async function verbosityLevel(): Promise<0 | 1 | 2 | 3> {
   if (level > 3)
     throw new RangeError(`Invalid verbosity: ${level}. 3 is maximum.`);
 
-  return level as 0 | 1 | 2 | 3;
+  cached = level as VerbosityLevel;
+
+  return cached;
 }
