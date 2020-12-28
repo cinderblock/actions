@@ -93,6 +93,8 @@ async function copySources(): Promise<void> {
 async function restartService(wait?: () => Promise<void>): Promise<void> {
   const serviceName = await input('systemd-service');
 
+  if (!serviceName) throw new Error('systemd-service unset');
+
   debug(2, 'Stopping service', serviceName);
 
   await spawn('ssh', 'runtime-server', 'systemctl', 'stop', serviceName);
