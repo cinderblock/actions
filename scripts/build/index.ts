@@ -13,4 +13,5 @@ Promise.all([
   // buildTarget('test'),
   buildTarget('prepare'),
   buildTarget('deploy'),
+  buildTarget('deploy-simple'),
 ]).catch(reportError);

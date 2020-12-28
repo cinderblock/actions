@@ -176,6 +176,38 @@ jobs:
           verbosity: 3
 ```
 
+## [Simple Deploy](src/actions/deploy-simple)
+
+Copy working directory over and restart a service.
+
+### Usage
+
+```yml
+jobs:
+  my-job:
+    runs-on: ubuntu-latest # Anything should work
+    steps:
+      - name: Use cinderblock Simple Deploy Action
+        uses: cinderblock/actions/deploy-simple@v1
+        with:
+          domains: example.com
+          deploy-key: ${{ secrets.DEPLOY_KEY }}
+          runtime-host-hostname: some.host
+
+          runtime-host-port: 22
+          runtime-host-keys: ${{ secrets.RUNTIME_HOST_KEYS }} # ssh-keyscan some.host
+
+          runtime-host-user: remote-user
+
+          runtime-host-directory: /some/dir/on/remote
+
+          # local directory to copy to remote
+          deploy-directory: dist # Default: `.`
+
+          # Change log level of action
+          verbosity: 3 # Default: `1`
+```
+
 ## Development
 
 Run a single command to setup a development environment to work on cinderblock/actions:
