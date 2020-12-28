@@ -1,7 +1,7 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 
-name: Aven Prepare
-description: Prepare a server for Aven application runtime
+name: Prepare
+description: Prepare a server for application runtime
 author: Cameron Tacklind <cameron@tacklind.com>
 runs:
   using: node12

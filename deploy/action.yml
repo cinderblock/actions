@@ -1,7 +1,7 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 
-name: Aven Deploy
-description: Deploy an Aven project to a runtime server
+name: Deploy
+description: Deploy an project to a runtime server
 author: Cameron Tacklind <cameron@tacklind.com>
 inputs:
   domains:
@@ -50,12 +50,12 @@ inputs:
     required: false
     description: |
       Extra lines to put in Systemd config
-      Use to extend the Aven Systemd service implementation
+      Use to extend the Systemd service implementation
   service-config-files:
     required: false
     description: |
       List of files to put into service config dir.
-      Use to extend the Aven Systemd service implementation
+      Use to extend the Systemd service implementation
 
   runtime-user:
     required: false
