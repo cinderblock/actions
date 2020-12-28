@@ -91,7 +91,7 @@ async function copySources(): Promise<void> {
 }
 
 async function restartService(wait?: () => Promise<void>): Promise<void> {
-  const serviceName = await input('service-name');
+  const serviceName = await input('systemd-service');
 
   debug(2, 'Stopping service', serviceName);
 
