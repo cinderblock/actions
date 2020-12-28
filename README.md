@@ -190,7 +190,7 @@ jobs:
       - name: Use cinderblock Simple Deploy Action
         uses: cinderblock/actions/deploy-simple@v1
         with:
-          domains: example.com
+          systemd-service: my.service
           deploy-key: ${{ secrets.DEPLOY_KEY }}
           runtime-host-hostname: some.host
 
