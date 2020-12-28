@@ -10,7 +10,7 @@ import {
 import { spawn, exec } from '../../utils/spawn';
 
 import { addAptDependencies } from './aptDependencies';
-import { readAvenConfig } from './readAvenConfig';
+import { readConfig } from './readConfig';
 import { debug } from '../../utils/io';
 
 addAptDependencies('nginx', 'certbot', 'ssl-cert');
@@ -135,7 +135,7 @@ proxy_set_header Connection $connection_upgrade;
 async function setupNginxConfigs(): Promise<void> {
   const dir = '/etc/nginx/conf.d';
 
-  const { domains } = await readAvenConfig();
+  const { domains } = await readConfig();
 
   if (!domains) throw new Error('Domains unset!');
 
@@ -274,7 +274,7 @@ async function setupNginxServersFull(): Promise<void> {
     webRootPath,
     domains,
     service: { name: serviceName },
-  } = await readAvenConfig();
+  } = await readConfig();
   if (!domains) throw new Error('Domains unset!');
 
   if (webRootPath) await mkdir(webRootPath);
@@ -362,7 +362,7 @@ systemctl reload nginx
 // cSpell:ignore YOURDOMAIN privkey fullchain noninteractive
 
 async function setupCertbot(): Promise<void> {
-  const { domains } = await readAvenConfig();
+  const { domains } = await readConfig();
   if (!domains) throw new Error('Domains unset!');
 
   await Promise.all([
@@ -438,7 +438,7 @@ async function checkNginxConfig(): Promise<void> {
 }
 
 export async function setupNginx(): Promise<void> {
-  const { domains } = await readAvenConfig();
+  const { domains } = await readConfig();
   if (!domains) return;
 
   // Ensure Let's Encrypt configuration is setup

@@ -1,5 +1,5 @@
 {
-  "name": "aven-github-actions",
+  "name": "cinderblock-github-actions",
   "version": "0.0.0",
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "Apache 2.0",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AvenCloud/actions.git"
+    "url": "git+https://github.com/cinderblock/actions.git"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",

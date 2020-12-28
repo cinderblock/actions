@@ -1,6 +1,6 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 
-name: Aven Checkout
+name: Checkout
 description: Checkout a repo and install dependencies, with caching
 author: Cameron Tacklind <cameron@tacklind.com>
 inputs:

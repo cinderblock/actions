@@ -1,9 +1,9 @@
 import { exec } from '../../utils/spawn';
 import { ensureFileIs, mkdir, chmod, chown } from '../../utils/fs';
-import { readAvenConfig } from './readAvenConfig';
+import { readConfig } from './readConfig';
 
 export async function setupMainServiceFiles(): Promise<void> {
-  const { service } = await readAvenConfig();
+  const { service } = await readConfig();
 
   const serviceName = service.name;
   const serviceDescription = service.description ?? 'Runtime server';
@@ -18,7 +18,7 @@ export async function setupMainServiceFiles(): Promise<void> {
   const runtimeGid = exec(`id -g ${runtimeUser}`);
 
   const dir1 = mkdir(`${serviceFile}.d`);
-  const dir2 = mkdir(`/opt/aven`);
+  const dir2 = mkdir(`/opt`);
   const dir3 = mkdir(HomeDir).then(
     async () =>
       await Promise.all([
@@ -40,7 +40,7 @@ Type=simple
 Restart=always
 Environment=LISTEN_PATH="/run/${serviceName}/sock"
 RuntimeDirectory=${serviceName}
-WorkingDirectory=/opt/aven/${serviceName}
+WorkingDirectory=/opt/${serviceName}
 ExecStart=${startServerCommand}
 Environment=HOME="${HomeDir}"
 User=${runtimeUser}

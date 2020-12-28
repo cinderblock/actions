@@ -91,7 +91,7 @@ async function copySources(): Promise<void> {
     dir,
 
     // Remote runtime server and destination
-    `runtime-server:/opt/aven/${await getServiceName()}`,
+    `runtime-server:/opt/${await getServiceName()}`,
   );
 }
 

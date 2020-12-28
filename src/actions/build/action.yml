@@ -1,7 +1,7 @@
 # https://help.github.com/en/articles/metadata-syntax-for-github-actions
 
-name: Aven Build
-description: Build an Aven project
+name: Build
+description: Build an node project
 author: Cameron Tacklind <cameron@tacklind.com>
 runs:
   using: node12

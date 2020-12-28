@@ -1,8 +1,8 @@
 import { ensureLinkIs } from '../../utils/fs';
-import { readAvenConfig } from './readAvenConfig';
+import { readConfig } from './readConfig';
 
 export async function setupTimezone(): Promise<void> {
-  const { runtimeServerTimezone } = await readAvenConfig();
+  const { runtimeServerTimezone } = await readConfig();
 
   if (!runtimeServerTimezone) return;
 

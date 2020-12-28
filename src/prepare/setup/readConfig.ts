@@ -24,13 +24,13 @@ process.stdin.on('end', () => {
 
   const parsed = JSON.parse(data);
 
-  debug('Using aven config:', parsed);
+  debug('Using config:', parsed);
 
   // TODO: Sanitize object?
 
   done(parsed);
 });
 
-export function readAvenConfig(): Promise<Config> {
+export function readConfig(): Promise<Config> {
   return config;
 }

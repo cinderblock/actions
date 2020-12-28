@@ -1,16 +1,16 @@
-# Aven Actions
+# cinderblock Actions
 
-Pre-made "Actions" for deploying Aven projects with GitHub Actions
+Pre-made "Actions" for GitHub Actions that simplify configuration
 
-[![AvenCloud/actions status](https://github.com/AvenCloud/actions/workflows/Main/badge.svg?branch=master)](https://github.com/AvenCloud/actions/actions?query=branch%3Amaster)
+[![cinderblock/actions status](https://github.com/cinderblock/actions/workflows/Main/badge.svg?branch=master)](https://github.com/cinderblock/actions/actions?query=branch%3Amaster)
 
 - [New Server Quick Setup](#new-server-quick-setup)
 
-| Action                | `uses`                          | Description                                                                                            |
-| --------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [Checkout](#checkout) | `AvenCloud/actions/checkout@v1` | Get the latest copy of code from github and install node dependencies                                  |
-| [Prepare](#prepare)   | `AvenCloud/actions/prepare@v1`  | Prepare an Ubuntu server for running a node backend                                                    |
-| [Deploy](#deploy)     | `AvenCloud/actions/deploy@v1`   | Prepare the runtime server environment, copy new compiled sources over, and start the new application. |
+| Action                | `uses`                            | Description                                                                                            |
+| --------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [Checkout](#checkout) | `cinderblock/actions/checkout@v1` | Get the latest copy of code from github and install node dependencies                                  |
+| [Prepare](#prepare)   | `cinderblock/actions/prepare@v1`  | Prepare an Ubuntu server for running a node backend                                                    |
+| [Deploy](#deploy)     | `cinderblock/actions/deploy@v1`   | Prepare the runtime server environment, copy new compiled sources over, and start the new application. |
 
 - [Development](#development)
 
@@ -52,13 +52,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Latest
-        uses: AvenCloud/actions/checkout@v1
+        uses: cinderblock/actions/checkout@v1
 
       - name: Build Application
         run: yarn build
 
       - name: Deploy to Runtime Server
-        uses: AvenCloud/actions/deploy@v1
+        uses: cinderblock/actions/deploy@v1
         with:
           domains: example.com
           deploy-key: ${{ secrets.DEPLOY_KEY }}
@@ -85,8 +85,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest # Anything should work
     steps:
-      - name: Use Aven Tools Checkout Action
-        uses: AvenCloud/actions/checkout@v1
+      - name: Use cinderblock Checkout Action
+        uses: cinderblock/actions/checkout@v1
         with:
           # All optional
           ref: Git Reference to download
@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Latest
-        uses: AvenCloud/actions/checkout@v1
+        uses: cinderblock/actions/checkout@v1
 
       # Now you can do other stuff like...
 
@@ -126,7 +126,7 @@ jobs:
         run: yarn build
 
       - name: Checkout Latest
-        uses: AvenCloud/actions/prepare@v1
+        uses: cinderblock/actions/prepare@v1
 ```
 
 ## [Deploy](src/actions/deploy)
@@ -140,8 +140,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest # Anything should work
     steps:
-      - name: Use Aven Tools Deploy Action
-        uses: AvenCloud/actions/deploy@v1
+      - name: Use cinderblock Deploy Action
+        uses: cinderblock/actions/deploy@v1
         with:
           domains: example.com
           deploy-key: ${{ secrets.DEPLOY_KEY }}
@@ -178,7 +178,7 @@ jobs:
 
 ## Development
 
-Run a single command to setup a development environment to work on AvenTools/actions:
+Run a single command to setup a development environment to work on cinderblock/actions:
 
 ```bash
 npm i

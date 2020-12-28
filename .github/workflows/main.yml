@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout latest code (using self)
-        uses: AvenCloud/actions/checkout@v1
+        uses: cinderblock/actions/checkout@v1
 
       - name: Check - Code Format
         if: always()
@@ -51,4 +51,4 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Self Test
-        uses: AvenCloud/actions/checkout@v1
+        uses: cinderblock/actions/checkout@v1

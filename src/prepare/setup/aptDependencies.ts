@@ -1,6 +1,6 @@
 import { ensureFileIs } from '../../utils/fs';
 import { spawn, exec } from '../../utils/spawn';
-import { readAvenConfig } from './readAvenConfig';
+import { readConfig } from './readConfig';
 
 const deps: string[] = [];
 
@@ -26,7 +26,7 @@ export async function setupAptDependencies(): Promise<void> {
 
   await spawn('apt-get', 'upgrade', '-y');
 
-  const config = await readAvenConfig();
+  const config = await readConfig();
 
   addAptDependencies(...(config.aptDependencies ?? []));
   addAptDependencies(...(config.runtimeAptDependencies ?? []));

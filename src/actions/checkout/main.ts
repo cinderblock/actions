@@ -19,7 +19,7 @@ export async function main(): Promise<void> {
   /**
    * Which repository to work with.
    *
-   * @example "AvenCloud/actions"
+   * @example "cinderblock/actions"
    * @default '${{ github.repository }}'
    */
   const repo = await input('repo');
