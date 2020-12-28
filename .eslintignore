@@ -6,8 +6,7 @@
 
 # Managed by other tools
 package-lock.json
-Export.svg
-Usage.svg
+*.drawio.svg
 
 # No linters configured
 *.md

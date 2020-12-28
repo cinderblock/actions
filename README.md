@@ -220,7 +220,7 @@ npm i
 
 Instead of using complicated `scripts` in `package.json`, we use a powerful Node.js script to actually do the building we happen to require.
 
-![Build Map](Export.svg)
+![Build Map](Export.drawio.svg)
 
 ### Publish
 

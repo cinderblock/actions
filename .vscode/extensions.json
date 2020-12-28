@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
+    "hediet.vscode-drawio",
     "streetsidesoftware.code-spell-checker"
   ]
 }
