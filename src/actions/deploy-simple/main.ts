@@ -55,6 +55,10 @@ async function copySources(): Promise<void> {
   const localDir = await input('deploy-directory');
   const remoteDir = await input('runtime-host-directory');
 
+  await log(2, 'Creating remote directory');
+
+  await spawn('ssh', 'runtime-server', 'mkdir', '-p', remoteDir);
+
   await log(3, 'spawning rsync');
 
   await spawn(
