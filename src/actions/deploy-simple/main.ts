@@ -103,6 +103,7 @@ async function serverCtl(command: 'start' | 'stop'): Promise<void> {
     'ssh',
     'runtime-server',
     'sudo',
+    '--non-interactive',
     'systemctl',
     command,
     serviceName,
