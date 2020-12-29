@@ -79,10 +79,9 @@ async function copySources(): Promise<void> {
 
     // Remote runtime server and destination
     `runtime-server:${remoteDir}`,
-  ).then(
-    r => log(3, 'rsync success', r),
-    e => log(0, 'rsync error', e),
   );
+
+  await log(3, 'rsync success');
 }
 
 async function serverCtl(command: 'start' | 'stop'): Promise<void> {
